@@ -1,4 +1,5 @@
 # app/__init__.py
+import os
 
 # third-party imports
 from flask import Flask, render_template
