@@ -4,7 +4,7 @@ from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from . import admin
-from .forms import SaleForm, RateForm, EmployeeAssignForm
+from .forms import SaleForm, RateForm, EmployeeAssignForm, EmployeeForm
 from .. import db
 from ..models import Sale, Rate, Employee
 
@@ -196,6 +196,8 @@ def list_employees():
     check_admin()
 
     employees = Employee.query.all()
+    employees = sorted(employees, key=lambda x: not x.is_admin)
+
     return render_template('admin/employees/employees.html',
                            employees=employees, title='Employees')
 
@@ -226,3 +228,34 @@ def assign_employee(id):
     return render_template('admin/employees/employee.html',
                            employee=employee, form=form,
                            title='Assign Employee')
+
+
+@admin.route('/employees/add', methods=['GET', 'POST'])
+@login_required
+def add_employee():
+    """
+    Add an employee to the database
+    """
+    check_admin()
+
+    add_employee = True
+
+    form = EmployeeForm()
+    if form.validate_on_submit():
+        employee = Employee(email=form.email.data,
+                            username=form.username.data,
+                            first_name=form.first_name.data,
+                            last_name=form.last_name.data,
+                            rate = form.rate.data,
+                            password=form.password.data)
+        try:
+            db.session.add(employee)
+            db.session.commit()
+            flash('You have successfully added a new employee.')
+        except:
+            flash('Error: Employee already exists.')
+
+        return redirect(url_for('admin.list_employees'))
+
+    return render_template('admin/employees/employee.html', add_employee=add_employee,
+                           form=form, title='Add Employee')

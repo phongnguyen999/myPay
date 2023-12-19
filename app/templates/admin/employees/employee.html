@@ -9,14 +9,18 @@
     <div class="middle">
       <div class="inner">
         <div class="center">
-            <h1> Assign Rates </h1>
-            <br/>
-            <p>
-                Select a rate to assign to
-                <span style="color: #aec251;">
-                    {{ employee.first_name }} {{ employee.last_name }}
-                </span>
-            </p>
+            {% if add_employee %}
+                <h1> Add Employee </h1>
+            {% else %}
+                <h1> Assign Rates </h1>
+                <br/>
+                <p>
+                    Select a rate to assign to
+                    <span style="color: #aec251;">
+                        {{ employee.first_name }} {{ employee.last_name }}
+                    </span>
+                </p>
+            {% endif %}
             <br/>
             {{ wtf.quick_form(form) }}
         </div>

@@ -51,6 +51,12 @@
               {% endfor %}
               </tbody>
             </table>
+            <div style="text-align: center">
+                <a href="{{ url_for('admin.add_employee') }}" class="btn btn-default btn-lg">
+                    <i class="fa fa-plus"></i>
+                    Add Employee
+                </a>
+            </div>
           </div>
         {% endif %}
         </div>
