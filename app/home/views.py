@@ -2,6 +2,7 @@
 
 from flask import abort, render_template
 from flask_login import login_required, current_user
+from ..models import Sale, Rate, Employee
 
 from . import home
 
@@ -18,7 +19,13 @@ def dashboard():
     """
     Render the dashboard template on the /dashboard route
     """
-    return render_template('home/dashboard.html', title="Dashboard")
+    # prevent admins from accessing the page
+    if current_user.is_admin:
+        abort(403)
+
+    employee = Employee.query.get_or_404(current_user.id)
+
+    return render_template('home/dashboard.html', employee=employee, title="Dashboard")
 
 @home.route('/admin/dashboard')
 @login_required

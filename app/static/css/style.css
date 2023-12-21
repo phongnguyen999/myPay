@@ -124,3 +124,22 @@ p.copyright {
     margin-left: auto;
     margin-right: auto;
 }
+
+.notification-bell {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 2px; /* Adjusted top position to move it closer to the bell */
+    right: 2px; /* Adjusted right position to move it closer to the bell */
+    background-color: transparent;
+    color: red;
+    padding: 2px;
+    font-size: 10px;
+}
+
+
+
+

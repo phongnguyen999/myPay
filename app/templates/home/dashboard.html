@@ -8,8 +8,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message">
-                    <h1>The Dashboard</h1>
-                    <h3>We made it here!</h3>
+                    <h1>Today's snapshot</h1>
+                    <ul>
+                        {% for sale in employee.sales.all() %}
+                            <li>{{ sale.amount }} {{ sale.date }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h3>{{ employee.rate.name }}</h3>
+
                     <hr class="intro-divider">
                     </ul>
                 </div>

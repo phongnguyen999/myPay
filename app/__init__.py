@@ -44,6 +44,9 @@ def create_app(config_name):
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
 
+    from .mypay import mypay as mypay_blueprint
+    app.register_blueprint(mypay_blueprint)
+
     @app.errorhandler(403)
     def forbidden(error):
         return render_template('errors/403.html', title='Forbidden'), 403
